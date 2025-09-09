@@ -10,14 +10,12 @@ require "uri"
 module Dify
   module Client
     class DifyClient
+      attr :read_timeout
+      
       def initialize(api_key, base_url = "https://api.dify.ai/v1")
         @api_key = api_key
         @base_url = base_url
         @read_timeout = 60
-      end
-
-      def read_timeout=(timeout)
-        @read_timeout=timeout
       end
 
       def message_feedback(message_id, rating, user)
@@ -66,6 +64,7 @@ module Dify
 
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
+        http.read_timeout = @read_timeout
 
         headers = {
           "Authorization" => "Bearer #{@api_key}",
