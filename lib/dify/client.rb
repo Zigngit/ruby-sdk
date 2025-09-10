@@ -10,8 +10,8 @@ require "uri"
 module Dify
   module Client
     class DifyClient
-      attr :read_timeout
-      
+      attr_accessor  :read_timeout
+
       def initialize(api_key, base_url = "https://api.dify.ai/v1")
         @api_key = api_key
         @base_url = base_url
